@@ -151,8 +151,9 @@ const StreamingPage = () => {
             </div>
           </div>
         </div>
-
-        <div className="flex">
+        
+        {/* ===== Responsive wrapper: stacks on mobile, row on md+ ===== */}
+        <div className="flex flex-col md:flex-row">
           {/* Main Video Player */}
           <div className="flex-1">
             <div className="relative bg-black">
@@ -409,14 +410,14 @@ const StreamingPage = () => {
             </div>
           </div>
 
-          {/* Episode Sidebar */}
-          <div className="w-80 bg-card border-l border-border">
+          {/* Episode Sidebar (responsive) */}
+          <div className="w-full md:w-80 bg-card border-t md:border-t-0 md:border-l border-border">
             <div className="p-4 border-b border-border">
               <h3 className="font-semibold text-foreground">Episodes</h3>
               <p className="text-sm text-muted-foreground">{episodes.length} episodes</p>
             </div>
             
-            <div className="max-h-[calc(100vh-200px)] overflow-y-auto">
+            <div className="max-h-[calc(100vh-200px)] md:max-h-[calc(100vh-100px)] overflow-y-auto">
               {episodes.map((episode, index) => (
                 <motion.div
                   key={episode.id}
@@ -473,3 +474,4 @@ const StreamingPage = () => {
 };
 
 export default StreamingPage;
+
