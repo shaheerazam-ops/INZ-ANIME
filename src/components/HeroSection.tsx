@@ -27,7 +27,7 @@ const HeroSection = () => {
       rating: 8.7,
       year: 2023,
       genre: ["Action", "Supernatural", "Historical"],
-      image: "/public/demonslayer.jpg.jpeg"
+      image: "/demonslayer.jpg.jpeg"
     },
     {
       id: 3,
@@ -36,7 +36,7 @@ const HeroSection = () => {
       rating: 8.9,
       year: 2023,
       genre: ["Action", "Supernatural", "School"],
-      image: "/public/jujutsu.jpg.jpeg"
+      image: "/jujutsu.jpg.jpeg"
     }
   ];
 
