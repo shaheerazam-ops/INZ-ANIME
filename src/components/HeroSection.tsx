@@ -18,7 +18,7 @@ const HeroSection = () => {
       rating: 9.0,
       year: 2023,
       genre: ["Action", "Drama", "Fantasy"],
-      image: "/public/aot.jpg.jpeg "
+      image: "/aot.jpg.jpeg "
     },
     {
       id: 2,
