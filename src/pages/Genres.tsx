@@ -17,28 +17,29 @@ const Genres = () => {
 
   const animeByGenre = {
     Action: [
-      { id: 1, title: 'Attack on Titan', rating: 9.0, episodes: 87, status: 'Completed' },
-      { id: 2, title: 'Demon Slayer', rating: 8.7, episodes: 32, status: 'Ongoing' },
-      { id: 3, title: 'Jujutsu Kaisen', rating: 8.9, episodes: 24, status: 'Ongoing' },
+      { id: 1, title: 'Attack on Titan', rating: 9.0, episodes: 87, status: 'Completed', image: '/aot.jpg.jpeg' },
+      { id: 2, title: 'Demon Slayer', rating: 8.7, episodes: 32, status: 'Ongoing', image: '/demonslayer.jpg.jpeg' },
+      { id: 3, title: 'Jujutsu Kaisen', rating: 8.9, episodes: 24, status: 'Ongoing', image: '/jujutsu.jpg.jpeg' },
     ],
     Comedy: [
-      { id: 4, title: 'One Punch Man', rating: 8.8, episodes: 24, status: 'Ongoing' },
-      { id: 5, title: 'Spy x Family', rating: 9.1, episodes: 25, status: 'Ongoing' },
-      { id: 6, title: 'Gintama', rating: 9.0, episodes: 367, status: 'Completed' },
+      { id: 4, title: 'One Punch Man', rating: 8.8, episodes: 24, status: 'Ongoing', image: '/onepunch.jpeg' },
+      { id: 5, title: 'Spy x Family', rating: 9.1, episodes: 25, status: 'Ongoing', image: '/spyxfamily.jpeg' },
+      { id: 6, title: 'Gintama', rating: 9.0, episodes: 367, status: 'Completed', image: '/gintama.jpeg' },
     ],
     Romance: [
-      { id: 7, title: 'Your Name', rating: 8.4, episodes: 1, status: 'Movie' },
-      { id: 8, title: 'Kaguya-sama', rating: 8.9, episodes: 37, status: 'Completed' },
-      { id: 9, title: 'Horimiya', rating: 8.2, episodes: 13, status: 'Completed' },
+      { id: 7, title: 'Your Name', rating: 8.4, episodes: 1, status: 'Movie', image: '/yourname.jpeg' },
+      { id: 8, title: 'Kaguya-sama', rating: 8.9, episodes: 37, status: 'Completed', image: '/kaguya.jpeg' },
+      { id: 9, title: 'Horimiya', rating: 8.2, episodes: 13, status: 'Completed', image: '/horimiya.jpeg' },
     ],
   };
 
-  const getAllAnime = () => {
-    return Object.values(animeByGenre).flat();
-  };
+  const getAllAnime = () => Object.values(animeByGenre).flat();
 
   const getFilteredAnime = () => {
-    const animeList = selectedGenre === 'All' ? getAllAnime() : (animeByGenre[selectedGenre as keyof typeof animeByGenre] || []);
+    const animeList = selectedGenre === 'All'
+      ? getAllAnime()
+      : animeByGenre[selectedGenre as keyof typeof animeByGenre] || [];
+
     return animeList.filter(anime =>
       anime.title.toLowerCase().includes(searchQuery.toLowerCase())
     );
@@ -50,7 +51,7 @@ const Genres = () => {
         <div className="container mx-auto px-4">
           {/* Header */}
           <div className="mb-8">
-            <h1 className="text-4xl md:text-5xl font-bold hero-gradient bg-clip-text text-transparent mb-4">
+            <h1 className="text-4xl md:text-5xl font-bold hero-gradient bg-clip-text  mb-4">
               Browse by Genre
             </h1>
             <p className="text-muted-foreground text-lg">
@@ -125,13 +126,22 @@ const AnimeGenreCard = ({ anime }: { anime: any }) => {
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className="aspect-[3/4] relative overflow-hidden">
-        <div className="w-full h-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
-          <div className="text-6xl font-bold text-primary/20">
-            {anime.title.charAt(0)}
+        {/* Thumbnail */}
+        {anime.image ? (
+          <img
+            src={anime.image}
+            alt={anime.title}
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          <div className="w-full h-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
+            <div className="text-6xl font-bold text-primary/20">
+              {anime.title.charAt(0)}
+            </div>
           </div>
-        </div>
-        
-        {/* Hover Details */}
+        )}
+
+        {/* Hover Overlay */}
         <div className={`absolute inset-0 bg-black/80 transition-opacity duration-300 ${
           isHovered ? 'opacity-100' : 'opacity-0'
         }`}>
@@ -158,6 +168,7 @@ const AnimeGenreCard = ({ anime }: { anime: any }) => {
         </div>
       </div>
 
+      {/* Anime Info */}
       <div className="p-4">
         <h3 className="font-semibold text-lg text-foreground mb-2 line-clamp-1">
           {anime.title}

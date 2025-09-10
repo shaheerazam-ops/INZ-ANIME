@@ -16,7 +16,7 @@ const RecentlyViewed = () => {
       totalEpisodes: 87,
       genre: ['Action', 'Drama'],
       rating: 9.0,
-      thumbnail: '/api/placeholder/400/225'
+      thumbnail: '/public/aot.jpg.jpeg'
     },
     {
       id: 2,
@@ -27,7 +27,7 @@ const RecentlyViewed = () => {
       totalEpisodes: 32,
       genre: ['Action', 'Supernatural'],
       rating: 8.7,
-      thumbnail: '/api/placeholder/400/225'
+      thumbnail: '/public/demonslayer.jpg.jpeg'
     },
     {
       id: 3,
@@ -38,7 +38,7 @@ const RecentlyViewed = () => {
       totalEpisodes: 1085,
       genre: ['Adventure', 'Comedy'],
       rating: 9.2,
-      thumbnail: '/api/placeholder/400/225'
+      thumbnail: '/public/onepeice.jpeg'
     },
     {
       id: 4,
@@ -49,7 +49,7 @@ const RecentlyViewed = () => {
       totalEpisodes: 24,
       genre: ['Action', 'Supernatural'],
       rating: 8.9,
-      thumbnail: '/api/placeholder/400/225'
+      thumbnail: '/public/jujutsu.jpg.jpeg'
     },
     {
       id: 5,
@@ -60,7 +60,7 @@ const RecentlyViewed = () => {
       totalEpisodes: 25,
       genre: ['Comedy', 'Action'],
       rating: 9.1,
-      thumbnail: '/api/placeholder/400/225'
+      thumbnail: '/spyxfamily.jpeg'
     }
   ]);
 
@@ -79,7 +79,7 @@ const RecentlyViewed = () => {
           {/* Header */}
           <div className="flex items-center justify-between mb-8">
             <div>
-              <h1 className="text-4xl md:text-5xl font-bold hero-gradient bg-clip-text text-transparent mb-4">
+              <h1 className="text-4xl md:text-5xl font-bold hero-gradient bg-clip-text mb-4">
                 Recently Viewed
               </h1>
               <p className="text-muted-foreground text-lg">

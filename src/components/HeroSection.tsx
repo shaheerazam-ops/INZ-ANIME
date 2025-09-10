@@ -2,9 +2,12 @@ import { useState, useEffect } from 'react';
 import { Play, Info, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
 const HeroSection = () => {
   const [currentAnime, setCurrentAnime] = useState(0);
+  const navigate = useNavigate();
 
   // Mock featured anime data
   const featuredAnime = [
@@ -15,7 +18,7 @@ const HeroSection = () => {
       rating: 9.0,
       year: 2023,
       genre: ["Action", "Drama", "Fantasy"],
-      image: "/api/placeholder/1920/1080"
+      image: "/public/aot.jpg.jpeg "
     },
     {
       id: 2,
@@ -24,7 +27,7 @@ const HeroSection = () => {
       rating: 8.7,
       year: 2023,
       genre: ["Action", "Supernatural", "Historical"],
-      image: "/api/placeholder/1920/1080"
+      image: "/public/demonslayer.jpg.jpeg"
     },
     {
       id: 3,
@@ -33,15 +36,15 @@ const HeroSection = () => {
       rating: 8.9,
       year: 2023,
       genre: ["Action", "Supernatural", "School"],
-      image: "/api/placeholder/1920/1080"
+      image: "/public/jujutsu.jpg.jpeg"
     }
   ];
 
-  // Auto-rotate featured anime every 8 seconds
+  // Auto-rotate featured anime every 6 seconds (faster rotation)
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentAnime((prev) => (prev + 1) % featuredAnime.length);
-    }, 8000);
+    }, 6000);
 
     return () => clearInterval(interval);
   }, [featuredAnime.length]);
@@ -65,17 +68,39 @@ const HeroSection = () => {
       <div className="relative z-10 container mx-auto px-4">
         <div className="max-w-4xl mx-auto text-center">
           {/* Main Title */}
-          <div className="mb-8">
-            <h1 className="text-6xl md:text-8xl font-bold hero-gradient bg-clip-text text-transparent mb-4 animate-fade-in-up">
-              INTZ.ANIME
-            </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="mb-8"
+          >
+            <motion.h1 
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.3, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="text-6xl md:text-8xl font-bold  mb-4"
+            >
+              INZ.ANIME
+            </motion.h1>
+            <motion.p 
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="text-xl md:text-2xl text-muted-foreground"
+            >
               Stream the best anime content
-            </p>
-          </div>
+            </motion.p>
+          </motion.div>
 
           {/* Featured Anime Card */}
-          <div className="card-gradient border border-border rounded-xl p-8 card-shadow animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+          <motion.div 
+            key={anime.id}
+            initial={{ opacity: 0, y: 10, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -10, scale: 0.98 }}
+            transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="card-gradient border border-border rounded-xl p-8 card-shadow"
+          >
             <div className="flex flex-col md:flex-row items-center gap-8">
               {/* Anime Info */}
               <div className="flex-1 text-left">
@@ -106,35 +131,47 @@ const HeroSection = () => {
                 </p>
                 
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Button 
-                    size="lg" 
-                    className="button-gradient button-shadow hover:opacity-90 transition-opacity"
-                  >
-                    <Play className="h-5 w-5 mr-2" />
-                    Watch Now
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    size="lg"
-                    className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
-                  >
-                    <Info className="h-5 w-5 mr-2" />
-                    More Info
-                  </Button>
+                  <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} transition={{ duration: 0.15 }}>
+                    <Button 
+                      size="lg" 
+                      className="button-gradient button-shadow hover:opacity-90 transition-opacity hover-lift"
+                      onClick={() => navigate(`/stream/${anime.id}/1`)}
+                    >
+                      <Play className="h-5 w-5 mr-2" />
+                      Watch Now
+                    </Button>
+                  </motion.div>
+                  <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} transition={{ duration: 0.15 }}>
+                    <Button 
+                      variant="outline" 
+                      size="lg"
+                      className="border-primary text-primary hover:bg-primary hover:text-primary-foreground hover-lift"
+                    >
+                      <Info className="h-5 w-5 mr-2" />
+                      More Info
+                    </Button>
+                  </motion.div>
                 </div>
               </div>
 
               {/* Anime Thumbnail */}
-              <div className="relative group">
-                <div className="w-64 h-36 bg-muted rounded-lg overflow-hidden glow-effect">
+              <div className="relative group w-64 h-36 rounded-lg overflow-hidden glow-effect">
+                {anime.image ? (
+                  <img
+                    src={anime.image}
+                    alt={`${anime.title} thumbnail`}
+                    className="w-full h-full object-cover"
+                    loading="eager"
+                  />
+                ) : (
                   <div className="w-full h-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
                     <Play className="h-12 w-12 text-primary" />
                   </div>
-                </div>
+                )}
                 <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors rounded-lg" />
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Anime Indicators */}
           <div className="flex justify-center gap-2 mt-8">

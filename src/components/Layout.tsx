@@ -4,6 +4,7 @@ import { Search, Menu, X, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import AuthModal from './AuthModal';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -28,10 +29,23 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
-            <Link to="/" className="flex items-center space-x-2">
-              <div className="hero-gradient text-transparent bg-clip-text text-2xl font-bold">
-                INTZ.ANIME
-              </div>
+            <Link to="/" className="flex items-center space-x-3" aria-label="inz.anime home">
+              {/** Image logo with graceful fallback to gradient text */}
+              {/* eslint-disable-next-line jsx-a11y/alt-text */}
+              {!false ? (
+                <img
+                  src="/mylogo.png.png"
+                  alt="inz.anime"
+                  className="h-8 w-auto select-none"
+                  onError={(e) => {
+                    const target = e.currentTarget as HTMLImageElement;
+                    target.style.display = 'none';
+                    const fallback = target.nextElementSibling as HTMLElement | null;
+                    if (fallback) fallback.style.display = 'block';
+                  }}
+                />
+              ) : null}
+              <span className=" text-2xl font-bold text-white">INZ.ANIME</span>
             </Link>
 
             {/* Desktop Navigation */}
@@ -117,7 +131,17 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       </header>
 
       {/* Main Content */}
-      <main>{children}</main>
+      <AnimatePresence mode="wait">
+        <motion.main
+          key={location.pathname}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+          transition={{ duration: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+        >
+          {children}
+        </motion.main>
+      </AnimatePresence>
 
       {/* Auth Modal */}
       <AuthModal isOpen={isAuthOpen} onClose={() => setIsAuthOpen(false)} />

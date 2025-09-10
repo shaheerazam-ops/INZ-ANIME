@@ -58,7 +58,7 @@ const SearchPage = () => {
         <div className="container mx-auto px-4 max-w-6xl">
           {/* Header */}
           <div className="mb-8 text-center">
-            <h1 className="text-4xl md:text-5xl font-bold hero-gradient bg-clip-text text-transparent mb-4">
+            <h1 className="text-4xl md:text-5xl font-bold hero-gradient bg-clip-text  mb-4">
               Search Anime
             </h1>
             <p className="text-muted-foreground text-lg">

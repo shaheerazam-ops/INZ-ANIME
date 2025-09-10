@@ -36,10 +36,10 @@ const About = () => {
   ];
 
   const team = [
-    { name: 'Akira Tanaka', role: 'Founder & CEO', specialty: 'Anime Enthusiast' },
-    { name: 'Sakura Yamamoto', role: 'CTO', specialty: 'Tech Wizard' },
-    { name: 'Hiroshi Sato', role: 'Head of Content', specialty: 'Curator' },
-    { name: 'Yuki Nakamura', role: 'Community Manager', specialty: 'Fan Advocate' },
+    { name: 'shaheer azam', role: 'Founder & CEO', specialty: 'Anime Enthusiast' },
+    { name: 'hamza azam ', role: 'CTO', specialty: 'Tech Wizard' },
+    { name: 'bobo khan', role: 'Head of Content', specialty: 'Curator' },
+    { name: 'saturo gojo', role: 'Community Manager', specialty: 'Fan Advocate' },
   ];
 
   return (
@@ -50,8 +50,8 @@ const About = () => {
           <div className="absolute inset-0 hero-gradient opacity-20" />
           <div className="container mx-auto px-4 relative z-10">
             <div className="text-center max-w-4xl mx-auto">
-              <h1 className="text-5xl md:text-7xl font-bold hero-gradient bg-clip-text text-transparent mb-6">
-                About INTZ.ANIME
+              <h1 className="text-5xl md:text-7xl font-bold hero-gradient bg-clip-text  mb-6">
+                About INZ.ANIME
               </h1>
               <p className="text-xl md:text-2xl text-muted-foreground mb-8 leading-relaxed">
                 Your ultimate destination for premium anime streaming. We're passionate about bringing the best anime content to fans worldwide.
@@ -75,7 +75,7 @@ const About = () => {
                   Our Mission
                 </h2>
                 <p className="text-lg text-muted-foreground leading-relaxed">
-                  At INTZ.ANIME, we believe that anime is more than just entertainment—it's a bridge between cultures, 
+                  At INZ.ANIME, we believe that anime is more than just entertainment—it's a bridge between cultures, 
                   a source of inspiration, and a community that brings people together. Our mission is to provide the 
                   highest quality anime streaming experience while fostering a global community of anime enthusiasts.
                 </p>
@@ -88,8 +88,8 @@ const About = () => {
         <section className="py-16">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold hero-gradient bg-clip-text text-transparent mb-4">
-                Why Choose INTZ.ANIME?
+              <h2 className="text-3xl md:text-4xl font-bold hero-gradient bg-clip-text  mb-4">
+                Why Choose INZ.ANIME?
               </h2>
               <p className="text-lg text-muted-foreground">
                 Discover what makes us the preferred choice for anime lovers
@@ -135,7 +135,7 @@ const About = () => {
                   className="text-center"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                  <div className="text-4xl md:text-5xl font-bold hero-gradient bg-clip-text text-transparent mb-2">
+                  <div className="text-4xl md:text-5xl font-bold hero-gradient bg-clip-text  mb-2">
                     {stat.number}
                   </div>
                   <div className="text-muted-foreground font-medium">
@@ -151,11 +151,11 @@ const About = () => {
         <section className="py-16">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold hero-gradient bg-clip-text text-transparent mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold hero-gradient bg-clip-text  mb-4">
                 Meet Our Team
               </h2>
               <p className="text-lg text-muted-foreground">
-                The passionate individuals behind INTZ.ANIME
+                The passionate individuals behind INZ.ANIME
               </p>
             </div>
             
@@ -190,7 +190,7 @@ const About = () => {
             <Card className="p-8 md:p-12 text-center card-gradient border-border card-shadow">
               <Star className="h-16 w-16 mx-auto mb-6 text-primary animate-glow-pulse" />
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
-                Join the INTZ.ANIME Community
+                Join the INZ.ANIME Community
               </h2>
               <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
                 Ready to dive into the world of premium anime streaming? 

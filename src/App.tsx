@@ -8,6 +8,7 @@ import Genres from "./pages/Genres";
 import SearchPage from "./pages/SearchPage";
 import RecentlyViewed from "./pages/RecentlyViewed";
 import About from "./pages/About";
+import StreamingPage from "./pages/StreamingPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -24,6 +25,7 @@ const App = () => (
           <Route path="/search" element={<SearchPage />} />
           <Route path="/recent" element={<RecentlyViewed />} />
           <Route path="/about" element={<About />} />
+          <Route path="/stream/:animeId/:episodeId" element={<StreamingPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

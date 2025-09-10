@@ -3,10 +3,13 @@ import { ChevronLeft, ChevronRight, Play, Star, Eye } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
 const TrendingSlider = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const navigate = useNavigate();
 
   // Mock trending anime data
   const trendingAnime = [
@@ -17,7 +20,7 @@ const TrendingSlider = () => {
       rating: 9.2,
       views: "2.5M",
       genre: ["Adventure", "Comedy", "Shounen"],
-      image: "/api/placeholder/400/600",
+      image: "/onepeice.jpeg",
       description: "Follow Monkey D. Luffy and his Straw Hat Pirates as they explore the Grand Line to find the legendary treasure One Piece."
     },
     {
@@ -27,7 +30,7 @@ const TrendingSlider = () => {
       rating: 8.8,
       views: "1.8M",
       genre: ["Action", "Supernatural", "Gore"],
-      image: "/api/placeholder/400/600",
+      image: "/chainsawman.jpeg",
       description: "A young man becomes a devil hunter to pay off his father's debt, wielding the power of chainsaws."
     },
     {
@@ -37,7 +40,7 @@ const TrendingSlider = () => {
       rating: 9.1,
       views: "3.2M",
       genre: ["Comedy", "Action", "Family"],
-      image: "/api/placeholder/400/600",
+      image: "/spyxfamily.jpeg",
       description: "A spy must create a fake family for a mission, unknowingly recruiting an assassin and a telepath."
     },
     {
@@ -47,7 +50,7 @@ const TrendingSlider = () => {
       rating: 8.5,
       views: "2.1M",
       genre: ["Action", "School", "Superhero"],
-      image: "/api/placeholder/400/600",
+      image: "/mha.jpeg",
       description: "In a world where superpowers are common, a powerless boy dreams of becoming the greatest hero."
     },
     {
@@ -57,7 +60,7 @@ const TrendingSlider = () => {
       rating: 8.7,
       views: "1.9M",
       genre: ["Drama", "Supernatural", "Delinquents"],
-      image: "/api/placeholder/400/600",
+      image: "/Toman.jpeg",
       description: "A man travels back in time to his school days to save his girlfriend from being killed by a gang."
     },
     {
@@ -67,21 +70,52 @@ const TrendingSlider = () => {
       rating: 9.0,
       views: "1.5M",
       genre: ["Comedy", "Supernatural", "Psychology"],
-      image: "/api/placeholder/400/600",
+      image: "/mobpsycho.jpeg",
       description: "A psychic middle schooler tries to live a normal life while dealing with his overwhelming powers."
+    },
+    {
+      id: 7,
+      title: "Horimiya",
+      episode: "Episode 30",
+      rating: 9.0,
+      views: "1.5M",
+      genre: ["Comedy", "romance", "gen-z"],
+      image: "/horimiya.jpeg",
+      description: "A highschool romance and their journey  ,join us on there love-life ."
+    },
+
+    {
+      id: 8,
+      title: "one punch man",
+      episode: "Episode 121",
+      rating: 9.0,
+      views: "1.3M",
+      genre: ["Comedy", "Supernatural", "action"],
+      image: "/onepunch.jpeg",
+      description: "A bald over powered guy reigning over the anime verse"
+    },
+    {
+      id: 9,
+      title: "Your Name",
+      episode: "movie",
+      rating: 9.0,
+      views: "6.5M",
+      genre: ["romance", "slice of life", "Psychology"],
+      image: "/yourname.jpeg",
+      description: "A destined meeting of the two characters and the fatefull encounter"
     }
   ];
 
   const itemsPerSlide = 4;
   const maxSlides = Math.ceil(trendingAnime.length / itemsPerSlide) - 1;
 
-  // Auto-slide functionality
+  // Auto-slide functionality (faster rotation)
   useEffect(() => {
     if (!isAutoPlaying) return;
     
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev >= maxSlides ? 0 : prev + 1));
-    }, 5000);
+    }, 4000);
 
     return () => clearInterval(interval);
   }, [maxSlides, isAutoPlaying]);
@@ -107,7 +141,7 @@ const TrendingSlider = () => {
         {/* Section Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold hero-gradient bg-clip-text text-transparent">
+            <h2 className="text-3xl md:text-4xl font-bold hero-gradient bg-clip-text text-bold">
               Trending Now
             </h2>
             <p className="text-muted-foreground mt-2">
@@ -138,9 +172,10 @@ const TrendingSlider = () => {
 
         {/* Slider Container */}
         <div className="relative overflow-hidden">
-          <div 
-            className="flex transition-transform duration-500 ease-in-out"
-            style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+          <motion.div 
+            className="flex"
+            animate={{ x: `-${currentSlide * 100}%` }}
+            transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
             {Array.from({ length: Math.ceil(trendingAnime.length / itemsPerSlide) }, (_, slideIndex) => (
               <div key={slideIndex} className="w-full flex-shrink-0">
@@ -148,12 +183,12 @@ const TrendingSlider = () => {
                   {trendingAnime
                     .slice(slideIndex * itemsPerSlide, (slideIndex + 1) * itemsPerSlide)
                     .map((anime, index) => (
-                      <AnimeCard key={anime.id} anime={anime} index={index} />
+                      <AnimeCard key={anime.id} anime={anime} index={index} navigate={navigate} />
                     ))}
                 </div>
               </div>
             ))}
-          </div>
+          </motion.div>
         </div>
 
         {/* Slide Indicators */}
@@ -179,19 +214,42 @@ const TrendingSlider = () => {
 };
 
 // Individual Anime Card Component
-const AnimeCard = ({ anime, index }: { anime: any; index: number }) => {
+const AnimeCard = ({ anime, index, navigate }: { anime: any; index: number; navigate: any }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <Card 
-      className="group relative overflow-hidden card-gradient border-border anime-hover"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      style={{ animationDelay: `${index * 0.1}s` }}
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3, delay: index * 0.05, ease: [0.25, 0.46, 0.45, 0.94] }}
+      whileHover={{ y: -4, scale: 1.01 }}
+      className="group relative overflow-hidden"
     >
+      <Card 
+        className="group relative overflow-hidden card-gradient border-border anime-hover h-full"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
       <div className="aspect-[3/4] relative overflow-hidden">
         {/* Anime Poster */}
-        <div className="w-full h-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
+        {anime.image ? (
+          <img
+            src={anime.image}
+            alt={`${anime.title} poster`}
+            className="w-full h-full object-cover"
+            loading="lazy"
+            onError={(e) => {
+              const target = e.currentTarget as HTMLImageElement;
+              target.style.display = 'none';
+              const fallback = target.nextElementSibling as HTMLElement | null;
+              if (fallback) {
+                fallback.classList.remove('hidden');
+                fallback.classList.add('flex');
+              }
+            }}
+          />
+        ) : null}
+        <div className="hidden w-full h-full bg-gradient-to-br from-primary/20 to-secondary/20 items-center justify-center">
           <Play className="h-16 w-16 text-primary/60" />
         </div>
         
@@ -216,13 +274,16 @@ const AnimeCard = ({ anime, index }: { anime: any; index: number }) => {
                 {anime.description}
               </p>
               
-              <Button 
-                size="sm" 
-                className="w-full button-gradient button-shadow hover:opacity-90 transition-opacity"
-              >
-                <Play className="h-4 w-4 mr-2" />
-                Watch Now
-              </Button>
+              <motion.div whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }} transition={{ duration: 0.1 }}>
+                <Button 
+                  size="sm" 
+                  className="w-full button-gradient button-shadow hover:opacity-90 transition-opacity hover-lift"
+                  onClick={() => navigate(`/stream/${anime.id}/1`)}
+                >
+                  <Play className="h-4 w-4 mr-2" />
+                  Watch Now
+                </Button>
+              </motion.div>
             </div>
           </div>
         </div>
@@ -253,6 +314,7 @@ const AnimeCard = ({ anime, index }: { anime: any; index: number }) => {
         </div>
       </div>
     </Card>
+    </motion.div>
   );
 };
 
