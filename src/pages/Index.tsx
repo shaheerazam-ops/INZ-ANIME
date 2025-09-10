@@ -1,13 +1,33 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import HeroSection from '@/components/HeroSection';
+import TrendingSlider from '@/components/TrendingSlider';
+import Layout from '@/components/Layout';
 
 const Index = () => {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
+    <Layout>
+      <div className="min-h-screen bg-background">
+        {/* Hero Section */}
+        <HeroSection />
+        
+        {/* Trending Anime Slider */}
+        <TrendingSlider />
+        
+        {/* Additional Content Sections */}
+        <section className="py-16 bg-background">
+          <div className="container mx-auto px-4">
+            <div className="text-center">
+              <h2 className="text-3xl md:text-4xl font-bold hero-gradient bg-clip-text text-transparent mb-6">
+                Start Your Anime Journey
+              </h2>
+              <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+                Discover thousands of anime series and movies. From classic masterpieces to the latest releases, 
+                find your next favorite show on INTZ.ANIME.
+              </p>
+            </div>
+          </div>
+        </section>
       </div>
-    </div>
+    </Layout>
   );
 };
 
